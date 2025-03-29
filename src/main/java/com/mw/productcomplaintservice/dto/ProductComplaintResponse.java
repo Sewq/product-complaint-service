@@ -2,7 +2,6 @@ package com.mw.productcomplaintservice.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -21,5 +20,7 @@ public class ProductComplaintResponse {
     private Instant complaintDate;
 
     private String country;
+
+    private int counter;
 
 }

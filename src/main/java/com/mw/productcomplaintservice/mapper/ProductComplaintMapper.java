@@ -22,6 +22,7 @@ public class ProductComplaintMapper {
                 .country(productComplaint.getCountry())
                 .id(productComplaint.getId())
                 .productComplaint(productComplaint.getProductComplaint())
+                .counter(productComplaint.getCounter())
                 .build();
 
     }

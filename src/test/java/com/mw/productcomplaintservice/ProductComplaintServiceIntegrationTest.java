@@ -105,6 +105,7 @@ class ProductComplaintServiceIntegrationTest {
                 .findByProductIdAndComplainerName(updateRequest.getProductId(), updateRequest.getComplainerName());
 
         assertThat(updatedEntity.isPresent()).isTrue();
+        assertThat(updatedEntity.get().getCounter()).isEqualTo(0);
         assertThat(updatedEntity.get().getProductComplaint()).isEqualTo(MISSING_PARTS_COMPLAINT);
     }
 
