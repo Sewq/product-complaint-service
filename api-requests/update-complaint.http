@@ -1,0 +1,37 @@
+### PUT request to update description
+PUT http://localhost:4002/productComplaint/update
+Content-Type: application/json
+
+{
+  "complainerName": "Michal",
+  "productId": "214152",
+  "productComplaint": "still not working"
+}
+
+### PUT request to update description - validation error, name required
+PUT http://localhost:4002/productComplaint/update
+Content-Type: application/json
+
+{
+  "productId": "214152",
+  "productComplaint": "still not working"
+}
+
+### PUT request to update description - validation error, product id required
+PUT http://localhost:4002/productComplaint/update
+Content-Type: application/json
+
+{
+  "complainerName": "Sewq2",
+  "productComplaint": "still not working"
+}
+
+### PUT request to update description, 404 - no entity found
+PUT http://localhost:4002/productComplaint/update
+Content-Type: application/json
+
+{
+  "complainerName": "Sewq2",
+  "productId": "21415s2",
+  "productComplaint": "still not working"
+}

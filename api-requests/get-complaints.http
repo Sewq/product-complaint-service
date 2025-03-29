@@ -1,0 +1,2 @@
+### GET request to fetch all complaints
+GET http://localhost:4002/productComplaint

@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  product-complaint-service:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: product-complaint-service:latest
+    container_name: product-complaint-service
+    restart: always
+    ports:
+      - "4002:4002"
+    env_file:
+      - .env
+    networks:
+      - emp
+
+  product-complaint-service-db:
+    image: postgres:15
+    container_name: product-complaint-service-db
+    restart: always
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5001:5432"
+    networks:
+      - emp
+
+networks:
+  emp:
+    driver: bridge

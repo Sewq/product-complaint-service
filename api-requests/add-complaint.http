@@ -1,0 +1,40 @@
+### PUT request to add new complaint
+PUT http://localhost:4002/productComplaint/add
+Content-Type: application/json
+
+{
+  "complainerName": "Michal",
+  "productId": "214152",
+  "productComplaint": "not working"
+}
+
+
+### PUT request to add new complaint - validation error, no description
+PUT http://localhost:4002/productComplaint/add
+Content-Type: application/json
+
+{
+  "complainerName": "Michal",
+  "productId": "214152"
+}
+
+
+### PUT request to add new complaint - validation error, no complainer name
+PUT http://localhost:4002/productComplaint/add
+Content-Type: application/json
+
+{
+  "productId": "214152",
+  "productComplaint": "not working"
+}
+
+
+### PUT request to add new complaint - validation error, no product id
+PUT http://localhost:4002/productComplaint/add
+Content-Type: application/json
+
+{
+  "complainerName": "Michal",
+  "productComplaint": "not working"
+}
+
