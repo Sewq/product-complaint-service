@@ -78,14 +78,6 @@ class ProductComplaintControllerTest {
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
-    private ProductComplaintAddRequest createRequest() {
-        return ProductComplaintAddRequest.builder()
-                .productComplaint("complaint")
-                .productId("id")
-                .complainerName("name")
-                .build();
-    }
-
     @Test
     public void updateComplaintDescription_shouldReturnHttpStatus400_whenInvalidDataSent() {
         ProductComplaintAddRequest request = ProductComplaintAddRequest.builder()
@@ -110,5 +102,13 @@ class ProductComplaintControllerTest {
                 });
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    private ProductComplaintAddRequest createRequest() {
+        return ProductComplaintAddRequest.builder()
+                .productComplaint("complaint")
+                .productId("id")
+                .complainerName("name")
+                .build();
     }
 }

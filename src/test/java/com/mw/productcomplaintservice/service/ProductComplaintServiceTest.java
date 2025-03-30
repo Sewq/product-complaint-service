@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 class ProductComplaintServiceTest {
     private static final String MISSING_PARTS_COMPLAINT = "Product arrived with missing parts";
     private static final String PRODUCT_DAMAGED_COMPLAINT = "Product arrived damaged";
-    private static final String PAN_PIOTR = "Pan Piotr";
+    private static final String COMPLAINER_NAME = "Pan Piotr";
     private static final String IP_ADDRESS = "192.168.1.1";
     private static final String COUNTRY_POLAND = "Poland";
 
@@ -139,7 +139,7 @@ class ProductComplaintServiceTest {
     private ProductComplaintAddRequest createAddComplaintRequest() {
         return ProductComplaintAddRequest.builder()
                 .productId("456")
-                .complainerName(PAN_PIOTR)
+                .complainerName(COMPLAINER_NAME)
                 .productComplaint(PRODUCT_DAMAGED_COMPLAINT)
                 .build();
     }
@@ -154,7 +154,7 @@ class ProductComplaintServiceTest {
         ProductComplaint complaint = new ProductComplaint();
         complaint.setId(id);
         complaint.setProductId("44123");
-        complaint.setComplainerName(PAN_PIOTR);
+        complaint.setComplainerName(COMPLAINER_NAME);
         complaint.setProductComplaint(PRODUCT_DAMAGED_COMPLAINT);
         complaint.setCountry(COUNTRY_POLAND);
         complaint.setCounter(0);

@@ -29,7 +29,7 @@ class ProductComplaintServiceIntegrationTest {
     private static final String COUNTRY_POLAND = "Poland";
     private static final String MISSING_PARTS_COMPLAINT = "Product arrived with missing parts";
     private static final String PRODUCT_DAMAGED_COMPLAINT = "Product arrived damaged";
-    private static final String PAN_PIOTR = "Pan Piotr";
+    private static final String COMPLAINER_NAME = "Pan Piotr";
     private final String IP = "192.168.1.1";
 
     @Inject
@@ -66,16 +66,16 @@ class ProductComplaintServiceIntegrationTest {
     @Test
     void addComplaint_shouldIncrementCounter_whenAddingSameComplaintTwice() {
         var addComplaintRequest = createAddComplaintRequest();
-        submitMultipleComplaintForSameProduct(addComplaintRequest);
 
-        List<ProductComplaint> complaints = productComplaintRepository.findAll();
-        assertThat(complaints.size()).isEqualTo(1);
-        assertThat(complaints.getFirst().getCounter()).isEqualTo(1);
-    }
+        productComplaintService.addComplaint(addComplaintRequest, IP);
+        List<ProductComplaint> complaintsAfterFirstSubmit = productComplaintRepository.findAll();
+        assertThat(complaintsAfterFirstSubmit.getFirst().getCounter()).isEqualTo(0);
 
-    private void submitMultipleComplaintForSameProduct(ProductComplaintAddRequest addComplaintRequest) {
         productComplaintService.addComplaint(addComplaintRequest, IP);
-        productComplaintService.addComplaint(addComplaintRequest, IP);
+
+        List<ProductComplaint> complaintsAfterSecondSubmit = productComplaintRepository.findAll();
+        assertThat(complaintsAfterSecondSubmit.size()).isEqualTo(1);
+        assertThat(complaintsAfterSecondSubmit.getFirst().getCounter()).isEqualTo(1);
     }
 
     @Test
@@ -95,7 +95,7 @@ class ProductComplaintServiceIntegrationTest {
     void updateComplaint_shouldUpdateExistingComplaint() {
         var addComplaintRequest = createAddComplaintRequest();
         ProductComplaintResponse productComplaintResponse = productComplaintService.addComplaint(addComplaintRequest, IP);
-        assertThat(productComplaintResponse.getProductComplaint()).isEqualTo(addComplaintRequest.getProductComplaint());
+        assertThat(productComplaintResponse.getProductComplaint()).isEqualTo(PRODUCT_DAMAGED_COMPLAINT);
 
         UUID id = productComplaintResponse.getId();
 
@@ -112,7 +112,7 @@ class ProductComplaintServiceIntegrationTest {
     }
 
     @Test
-    void updateComplaint_shouldThrowException_whenComplaintDoesNotExist_ShouldThrowException() {
+    void updateComplaint_shouldThrowException_whenComplaintDoesNotExist() {
         var nonExistentRequest = createUpdateRequest();
 
         assertThatThrownBy(() -> productComplaintService.updateComplaint(UUID.randomUUID(), nonExistentRequest)).isInstanceOf(EntityNotFoundException.class);
@@ -121,7 +121,7 @@ class ProductComplaintServiceIntegrationTest {
     private ProductComplaintAddRequest createAddComplaintRequest() {
         return ProductComplaintAddRequest.builder()
                 .productId("456")
-                .complainerName(PAN_PIOTR)
+                .complainerName(COMPLAINER_NAME)
                 .productComplaint(PRODUCT_DAMAGED_COMPLAINT)
                 .build();
     }
@@ -129,7 +129,7 @@ class ProductComplaintServiceIntegrationTest {
     private ProductComplaintAddRequest createSecondAddComplaintRequest() {
         return ProductComplaintAddRequest.builder()
                 .productId("12552")
-                .complainerName(PAN_PIOTR)
+                .complainerName(COMPLAINER_NAME)
                 .productComplaint(PRODUCT_DAMAGED_COMPLAINT)
                 .build();
     }
