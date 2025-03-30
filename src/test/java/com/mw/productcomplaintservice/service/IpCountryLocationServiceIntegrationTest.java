@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(classes = {IpCountryLocationService.class, RestTemplateConfiguration.class, RestTemplate.class})
+@SpringBootTest(classes = {IpCountryLocationServiceImpl.class, RestTemplateConfiguration.class, RestTemplate.class})
 @ExtendWith(OutputCaptureExtension.class)
 class IpCountryLocationServiceIntegrationTest {
     private static final String UNKNOWN_COUNTRY = "Unknown";

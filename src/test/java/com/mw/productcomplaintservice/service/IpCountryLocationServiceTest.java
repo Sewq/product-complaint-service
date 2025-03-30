@@ -22,7 +22,7 @@ class IpCountryLocationServiceTest {
     private RestTemplate restTemplate;
 
     @InjectMocks
-    private IpCountryLocationService ipLocationService;
+    private IpCountryLocationServiceImpl ipLocationService;
 
     @Test
     public void shouldReturnCountryName_whenCorrectIpProvided() throws JSONException {
