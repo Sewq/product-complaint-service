@@ -1,5 +1,5 @@
 ### PUT request to add new complaint
-PUT http://localhost:4002/productComplaint/add
+PUT http://localhost:4002/productComplaint
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 
 
 ### PUT request to add new complaint - validation error, no description
-PUT http://localhost:4002/productComplaint/add
+PUT http://localhost:4002/productComplaint
 Content-Type: application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: application/json
 
 
 ### PUT request to add new complaint - validation error, no complainer name
-PUT http://localhost:4002/productComplaint/add
+PUT http://localhost:4002/productComplaint
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 
 ### PUT request to add new complaint - validation error, no product id
-PUT http://localhost:4002/productComplaint/add
+PUT http://localhost:4002/productComplaint
 Content-Type: application/json
 
 {

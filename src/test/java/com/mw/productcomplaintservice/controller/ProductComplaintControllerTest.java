@@ -21,6 +21,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 
@@ -41,10 +43,10 @@ class ProductComplaintControllerTest {
         ProductComplaintAddRequest request = createRequest();
         ProductComplaintResponse response = ProductComplaintResponse.builder().build();
 
-        when(service.addComplaint(Mockito.any(), Mockito.anyString())).thenReturn(response);
+        when(service.addComplaint(any(), anyString())).thenReturn(response);
 
         ResponseEntity<ProductComplaintResponse> result = restTemplate.exchange(
-                BASE_URL + "/add", HttpMethod.PUT, new HttpEntity<>(request), ProductComplaintResponse.class);
+                BASE_URL, HttpMethod.PUT, new HttpEntity<>(request), ProductComplaintResponse.class);
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
@@ -55,10 +57,10 @@ class ProductComplaintControllerTest {
                 .build();
         ProductComplaintResponse response = ProductComplaintResponse.builder().build();
 
-        when(service.addComplaint(Mockito.any(), Mockito.anyString())).thenReturn(response);
+        when(service.addComplaint(any(), anyString())).thenReturn(response);
 
         ResponseEntity<ProductComplaintResponse> result = restTemplate.exchange(
-                BASE_URL + "/add", HttpMethod.PUT, new HttpEntity<>(request), ProductComplaintResponse.class);
+                BASE_URL, HttpMethod.PUT, new HttpEntity<>(request), ProductComplaintResponse.class);
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
@@ -69,10 +71,10 @@ class ProductComplaintControllerTest {
 
         ProductComplaintResponse response = ProductComplaintResponse.builder().build();
 
-        when(service.updateComplaint(Mockito.any())).thenReturn(response);
+        when(service.updateComplaint(any(), any())).thenReturn(response);
 
         ResponseEntity<ProductComplaintResponse> result = restTemplate.exchange(
-                BASE_URL + "/update", HttpMethod.PUT, new HttpEntity<>(request), ProductComplaintResponse.class);
+                BASE_URL, HttpMethod.PUT, new HttpEntity<>(request), ProductComplaintResponse.class);
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
@@ -92,10 +94,10 @@ class ProductComplaintControllerTest {
 
         ProductComplaintResponse response = ProductComplaintResponse.builder().build();
 
-        when(service.updateComplaint(Mockito.any())).thenReturn(response);
+        when(service.updateComplaint(any(), any())).thenReturn(response);
 
         ResponseEntity<ProductComplaintResponse> result = restTemplate.exchange(
-                BASE_URL + "/update", HttpMethod.PUT, new HttpEntity<>(request), ProductComplaintResponse.class);
+                BASE_URL, HttpMethod.PUT, new HttpEntity<>(request), ProductComplaintResponse.class);
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }

@@ -16,6 +16,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -96,13 +97,14 @@ class ProductComplaintServiceIntegrationTest {
         ProductComplaintResponse productComplaintResponse = productComplaintService.addComplaint(addComplaintRequest, IP);
         assertThat(productComplaintResponse.getProductComplaint()).isEqualTo(addComplaintRequest.getProductComplaint());
 
+        UUID id = productComplaintResponse.getId();
+
         var updateRequest = createUpdateRequest();
-        ProductComplaintResponse response = productComplaintService.updateComplaint(updateRequest);
+        ProductComplaintResponse response = productComplaintService.updateComplaint(id, updateRequest);
 
         assertThat(response.getProductComplaint()).isEqualTo(MISSING_PARTS_COMPLAINT);
 
-        Optional<ProductComplaint> updatedEntity = productComplaintRepository
-                .findByProductIdAndComplainerName(updateRequest.getProductId(), updateRequest.getComplainerName());
+        Optional<ProductComplaint> updatedEntity = productComplaintRepository.findById(id);
 
         assertThat(updatedEntity.isPresent()).isTrue();
         assertThat(updatedEntity.get().getCounter()).isEqualTo(0);
@@ -113,7 +115,7 @@ class ProductComplaintServiceIntegrationTest {
     void updateComplaint_shouldThrowException_whenComplaintDoesNotExist_ShouldThrowException() {
         var nonExistentRequest = createUpdateRequest();
 
-        assertThatThrownBy(() -> productComplaintService.updateComplaint(nonExistentRequest)).isInstanceOf(EntityNotFoundException.class);
+        assertThatThrownBy(() -> productComplaintService.updateComplaint(UUID.randomUUID(), nonExistentRequest)).isInstanceOf(EntityNotFoundException.class);
     }
 
     private ProductComplaintAddRequest createAddComplaintRequest() {
@@ -134,8 +136,6 @@ class ProductComplaintServiceIntegrationTest {
 
     private ProductComplaintUpdateRequest createUpdateRequest() {
         return ProductComplaintUpdateRequest.builder()
-                .productId("456")
-                .complainerName(PAN_PIOTR)
                 .productComplaint(MISSING_PARTS_COMPLAINT)
                 .build();
     }

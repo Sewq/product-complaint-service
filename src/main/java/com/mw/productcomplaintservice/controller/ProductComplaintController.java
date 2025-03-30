@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/productComplaint")
@@ -29,8 +30,8 @@ public class ProductComplaintController implements ProductComplaintApi {
     }
 
     @Override
-    public ResponseEntity<ProductComplaintResponse> updateComplaintDescription(ProductComplaintUpdateRequest productComplaintUpdateRequest) {
-        return ResponseEntity.ok(service.updateComplaint(productComplaintUpdateRequest));
+    public ResponseEntity<ProductComplaintResponse> updateComplaintDescription(UUID id, ProductComplaintUpdateRequest productComplaintUpdateRequest) {
+        return ResponseEntity.ok(service.updateComplaint(id, productComplaintUpdateRequest));
     }
 
     public ResponseEntity<List<ProductComplaintResponse>> getAllComplains() {

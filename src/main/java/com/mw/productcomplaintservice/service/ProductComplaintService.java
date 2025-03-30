@@ -53,11 +53,10 @@ public class ProductComplaintService {
     }
 
     @Transactional
-    public ProductComplaintResponse updateComplaint(ProductComplaintUpdateRequest productComplaintUpdateRequest) {
-        Optional<ProductComplaint> existingComplaint = repository.findByProductIdAndComplainerName(productComplaintUpdateRequest.getProductId(),
-                productComplaintUpdateRequest.getComplainerName());
+    public ProductComplaintResponse updateComplaint(UUID id, ProductComplaintUpdateRequest productComplaintUpdateRequest) {
 
-        return existingComplaint.map(productComplaint ->
+        return repository.findById(id)
+                .map(productComplaint ->
                         updateProductComplaintDescription(productComplaintUpdateRequest, productComplaint))
                 .orElseThrow(EntityNotFoundException::new);
 

@@ -108,15 +108,15 @@ class ProductComplaintServiceTest {
         var updatedComplaint = buildProductComplaint(uuid);
         updatedComplaint.setProductComplaint("Updated complaint description");
 
-        when(repository.findByProductIdAndComplainerName(anyString(), anyString())).thenReturn(Optional.of(existingComplaint));
+        when(repository.findById(uuid)).thenReturn(Optional.of(existingComplaint));
         when(repository.save(any(ProductComplaint.class))).thenReturn(updatedComplaint);
 
-        ProductComplaintResponse response = service.updateComplaint(updateRequest);
+        ProductComplaintResponse response = service.updateComplaint(uuid, updateRequest);
 
         assertThat(response).isNotNull();
         assertThat(response.getProductComplaint()).isEqualTo("Updated complaint description");
 
-        verify(repository).findByProductIdAndComplainerName(updateRequest.getProductId(), updateRequest.getComplainerName());
+        verify(repository).findById(uuid);
         verify(repository).save(any(ProductComplaint.class));
     }
 
@@ -124,12 +124,14 @@ class ProductComplaintServiceTest {
     void updateComplaint_shouldThrowException_whenComplaintDoesNotExist() {
         var updateRequest = createUpdateRequest();
 
-        when(repository.findByProductIdAndComplainerName(anyString(), anyString())).thenReturn(Optional.empty());
+        UUID id = UUID.randomUUID();
+        when(repository.findById(id)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> service.updateComplaint(updateRequest))
+
+        assertThatThrownBy(() -> service.updateComplaint(id, updateRequest))
                 .isInstanceOf(EntityNotFoundException.class);
 
-        verify(repository).findByProductIdAndComplainerName(updateRequest.getProductId(), updateRequest.getComplainerName());
+        verify(repository).findById(id);
         verify(repository, never()).save(any(ProductComplaint.class));
     }
 
@@ -144,8 +146,6 @@ class ProductComplaintServiceTest {
 
     private ProductComplaintUpdateRequest createUpdateRequest() {
         return ProductComplaintUpdateRequest.builder()
-                .productId("456")
-                .complainerName(PAN_PIOTR)
                 .productComplaint(MISSING_PARTS_COMPLAINT)
                 .build();
     }

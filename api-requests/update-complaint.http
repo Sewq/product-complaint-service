@@ -1,5 +1,5 @@
 ### PUT request to update description
-PUT http://localhost:4002/productComplaint/update
+PUT http://localhost:4002/productComplaint/123e4567-e89b-12d3-a456-426614174001
 Content-Type: application/json
 
 {
@@ -8,30 +8,23 @@ Content-Type: application/json
   "productComplaint": "still not working"
 }
 
-### PUT request to update description - validation error, name required
-PUT http://localhost:4002/productComplaint/update
-Content-Type: application/json
-
-{
-  "productId": "214152",
-  "productComplaint": "still not working"
-}
-
-### PUT request to update description - validation error, product id required
-PUT http://localhost:4002/productComplaint/update
-Content-Type: application/json
-
-{
-  "complainerName": "Sewq2",
-  "productComplaint": "still not working"
-}
 
 ### PUT request to update description, 404 - no entity found
-PUT http://localhost:4002/productComplaint/update
+PUT http://localhost:4002/productComplaint/123e4567-e89b-12d3-a456-426614174003
 Content-Type: application/json
 
 {
-  "complainerName": "Sewq2",
+  "complainerName": "Mm",
+  "productId": "21415s2",
+  "productComplaint": "still not working"
+}
+
+### PUT request to update description, 400 - bad request
+PUT http://localhost:4002/productComplaint/malformed-uuid
+Content-Type: application/json
+
+{
+  "complainerName": "Mm",
   "productId": "21415s2",
   "productComplaint": "still not working"
 }
