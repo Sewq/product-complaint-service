@@ -11,20 +11,21 @@
     to build and deploy both postgres database and application. After application has started, it will be accepting http requests @ http://localhost:4002 url.
 
 
-- Docker + IDE:
+- Docker postgres + IDE:
 
   In `docker-compose.yml` file, service `product-complaint-service` can be commented out in order to run only the postgres database on docker, and service on local env.
-  It is also required to uncomment `#datasource Postgresql Docker + IDE:` config section in `applicaion.properties` file.
+  It is also required to run the application with `dev` profile.
 
 
 - IDE + postgres
 
-  In `application.properties` file correct datasource config should be provided pointing to existing postgres database.
+  In `application-local.properties` file correct datasource config should be provided pointing to existing postgres database.
+  Also it is required to run the application with `local` profile.
 
 
 - IDE + h2
 
-  It is also possible to run entire service on H2 database. Simply uncomment `#datacource IDE + h2` config section in `application.properties` file.
+  It is also possible to run entire service on H2 database. Simply run the application with `h2` profile.
 
 ### Ready to use HTTP requests
 
